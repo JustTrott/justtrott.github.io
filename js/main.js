@@ -17,6 +17,14 @@ const routes = {
 	404: "/pages/404.html",
 };
 
+const titles = {
+	"#/": "Home",
+	"#/notes": "Notes",
+	"#/projects": "Projects",
+	"#/contacts": "Contacts",
+	404: "Page Not Found!",
+};
+
 const onLoadEvent = new Event("onload");
 
 const handleLocation = async () => {
@@ -26,8 +34,10 @@ const handleLocation = async () => {
 		return;
 	}
 	const url = routes[hash] || routes["404"];
+	const title = titles[hash] || titles["404"];
 	const html = await fetch(url).then((response) => response.text());
 	document.getElementById("main-container").innerHTML = html;
+	document.title = title;
 	window.dispatchEvent(onLoadEvent);
 };
 
