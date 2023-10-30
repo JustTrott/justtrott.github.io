@@ -1,25 +1,84 @@
-// When the user scrolls the page, execute myFunction
-window.onscroll = function () {
-	changeSticky();
+/**
+ * @param {Event} event
+ */
+const route = (event) => {
+	event = event || window.event;
+	event.preventDefault();
+	window.scrollTo({ top: 0, behavior: "smooth" });
+	const path = event.target.getAttribute("href"); // Remove the leading '#'
+	window.location.hash = path; // Set the hash part of the URL
 };
 
-function convertRemToPixels(rem) {
-	return (
-		rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
+const routes = {
+	"#/": "/pages/index.html",
+	"#/notes": "/pages/notes.html",
+	"#/projects": "/pages/projects.html",
+	"#/contacts": "/pages/contacts.html",
+	404: "/pages/404.html",
+};
+
+const onLoadEvent = new Event("onload");
+
+const handleLocation = async () => {
+	const hash = window.location.hash;
+	if (hash == "") {
+		window.location.hash = "#/";
+		return;
+	}
+	const url = routes[hash] || routes["404"];
+	const html = await fetch(url).then((response) => response.text());
+	document.getElementById("main-container").innerHTML = html;
+	window.dispatchEvent(onLoadEvent);
+};
+
+// Use the "hashchange" event instead of "popstate"
+window.addEventListener("hashchange", handleLocation);
+
+window.route = route;
+
+handleLocation();
+
+const headingTextArrays = {
+	"#/": ["Hi, I'm Trott.", "A developer."],
+	"#/notes": ["Notes."],
+	"#/projects": ["Projects."],
+	"#/contacts": ["Contacts."],
+};
+const typingDelay = 100;
+const newTextDelay = 700; // Delay between current and next text
+
+function type(typedTextSpans, TextArrayIndex = 0, charIndex = 0) {
+	if (TextArrayIndex >= typedTextSpans.length) return;
+	typedTextSpan = typedTextSpans[TextArrayIndex];
+	typedText = typedTextSpan.dataset.text;
+	if (charIndex >= typedText.length) {
+		// cursorSpan.classList.remove("typing");
+		setTimeout(
+			type.bind(null, typedTextSpans, TextArrayIndex + 1),
+			newTextDelay
+		);
+		return;
+	}
+	// if (!cursorSpan.classList.contains("typing"))
+	// 	cursorSpan.classList.add("typing");
+	typedTextSpan.textContent += typedText.charAt(charIndex++);
+	setTimeout(
+		type.bind(null, typedTextSpans, TextArrayIndex, charIndex),
+		typingDelay
 	);
 }
 
-// Get the header
-var header = document.getElementById("header");
-
-// Get the offset position of the navbar
-var sticky = header.offsetTop;
-
-// Add the sticky class to the header when you reach its scroll position. Remove "sticky" when you leave the scroll position
-function changeSticky() {
-	if (window.scrollY > sticky) {
-		header.classList.add("sticky");
-	} else {
-		header.classList.remove("sticky");
-	}
-}
+window.addEventListener("onload", function () {
+	const typedTextSpans = document.querySelectorAll(".typed-text");
+	const hash = window.location.hash;
+	const headingContainer = document.querySelector(".main-heading");
+	// set height of heading container to font size * number of lines * line height
+	headingContainer.style.height = `${
+		parseInt(getComputedStyle(headingContainer).fontSize) *
+		typedTextSpans.length *
+		1.5
+	}px`;
+	// const cursorSpan = document.querySelector(".type-cursor");
+	if (typedTextSpans.length == 0) return;
+	setTimeout(type.bind(null, typedTextSpans), newTextDelay);
+});
