@@ -76,6 +76,11 @@ body {
 	min-height: 100vh;
 }
 
+#main-container > * {
+	width: 100%;
+	max-width: 75rem;
+}
+
 h1 {
 	font-size: 6rem;
 	font-weight: 700;
@@ -117,121 +122,6 @@ span.typing {
 	100% {
 		background-color: #ccc;
 	}
-}
-
-.photo-text-block {
-	margin-top: 5rem;
-	display: flex;
-	max-width: 75rem;
-	align-items: center;
-	gap: 2rem;
-}
-
-.profile-image {
-	width: 20rem;
-	height: 20rem;
-	border-radius: 50%;
-	object-fit: cover;
-	margin-right: 3rem;
-}
-
-h2 {
-	font-size: 2.5rem;
-	font-weight: 700;
-}
-
-.photo-text-block .block-description {
-	margin-top: 2rem;
-	font-size: 1.5rem;
-}
-
-.mono {
-	font-family: "Space Mono", monospace;
-}
-
-.nyu-violet {
-	color: #8043a8;
-}
-
-.cards-section {
-	margin-top: 5rem;
-	width: 100%;
-	max-width: 75rem;
-}
-
-.divider {
-	height: 3px;
-	background-color: var(--text-secondary);
-	margin: 1rem 0;
-}
-
-.featured-cards {
-	display: flex;
-	justify-content: space-around;
-	gap: 2rem;
-}
-
-.card {
-	width: 20rem;
-	border-radius: 0.5rem;
-	padding: 1.2rem;
-	background-color: var(--bg-card);
-	transition: transform 0.3s;
-	display: flex;
-	flex-direction: column;
-}
-
-/* increase the size of the card on hover while keeping the contents */
-
-.card:hover {
-	transform: scale(1.05);
-}
-
-.card-image-container {
-	display: grid;
-}
-
-.card-image,
-.card-overlay {
-	grid-area: 1/1;
-}
-
-.card-image {
-	background-image: none;
-	width: 17.6rem;
-	height: 14rem;
-	font-size: 1.5rem;
-	font-weight: 700;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	text-align: center;
-}
-
-.card-overlay {
-	background-color: var(--bg-primary);
-	opacity: 0;
-	transition: background-color 0.3s, opacity 0.3s;
-}
-
-.card-overlay:hover {
-	/* opacity: 0.8; */
-}
-
-.card-text {
-	display: flex;
-	flex-grow: 1;
-	flex-direction: column;
-	justify-content: space-between;
-}
-
-.card-description {
-	margin-top: 0.5rem;
-}
-
-.card-type {
-	margin-top: 0.5rem;
-	color: #a190f6;
 }
 
 #footer {
