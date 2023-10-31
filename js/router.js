@@ -4,7 +4,6 @@
 const route = (event) => {
 	event = event || window.event;
 	event.preventDefault();
-	window.scrollTo({ top: 0, behavior: "smooth" });
 	const path = event.target.getAttribute("href"); // Remove the leading '#'
 	window.location.hash = path; // Set the hash part of the URL
 };
@@ -37,6 +36,7 @@ async function handleLocation() {
 	const title = titles[hash] || titles["404"];
 	const html = await fetch(url).then((response) => response.text());
 	document.getElementById("main-container").innerHTML = html;
+	window.scrollTo({ top: 0 });
 	document.title = title;
 	window.dispatchEvent(onLoadEvent);
 }

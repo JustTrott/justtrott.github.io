@@ -23,6 +23,43 @@ body {
 	background-color: var(--bg-primary);
 }
 
+#blob {
+	background-color: white;
+	height: 20rem;
+	aspect-ratio: 1;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	translate: -50% -50%;
+	border-radius: 50%;
+	background: linear-gradient(to right, aquamarine, mediumpurple);
+	animation: rotate 20s infinite;
+	z-index: -2;
+}
+
+@keyframes rotate {
+	from {
+		rotate: 0deg;
+	}
+
+	50% {
+		scale: 1 1.2;
+	}
+	to {
+		rotate: 360deg;
+	}
+}
+
+#blob-blur {
+	position: fixed; /* Make the position fixed */
+	top: 0; /* Position it at the top edge */
+	right: 0; /* Position it at the right edge */
+	bottom: 0; /* Position it at the bottom edge */
+	left: 0; /* Position it at the left edge */
+	z-index: -1;
+	backdrop-filter: blur(10rem);
+}
+
 #header {
 	/* margin-top: 3rem; */
 	display: flex;
