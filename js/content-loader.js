@@ -12,7 +12,6 @@ async function loadJson(filename) {
 // Function to create html element note, using the template-below, without cloning it:
 function createShortNote(noteData) {
 	const note = document.createElement("div");
-	console.log(noteData);
 	note.className = "note on-scroll-fade-in";
 	note.innerHTML = `
         <div class="note-title">
@@ -27,9 +26,8 @@ function createShortNote(noteData) {
 }
 
 // create note from all the notes in the data and append them to the #notes element
-function displayNotes(data, elementId) {
+function displayNotes(data, notesElement) {
 	const notes = data.map(createShortNote);
-	const notesElement = document.querySelector(elementId);
 	notes.forEach((note) => notesElement.appendChild(note));
 }
 

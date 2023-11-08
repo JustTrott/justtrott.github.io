@@ -1,3 +1,7 @@
+import { handleTypeEffect } from "./type-effect.js";
+import { handleScrollAnimation } from "./scroll-animations.js";
+import { loadJson, createShortNote, displayNotes } from "./content-loader.js";
+
 /**
  * @param {Event} event
  */
@@ -8,19 +12,40 @@ const route = (event) => {
 	window.location.hash = path; // Set the hash part of the URL
 };
 
+async function handleNotes(url, hashParts) {
+	const title = handleDefault(url, hashParts);
+	console.log(hashParts);
+	const notes = await loadJson("/content/notes.json");
+	displayNotes(notes, document.getElementById("notes"));
+	if (hashParts.length > 2) {
+	}
+	return title;
+}
+
+async function handleDefault(url, hashParts) {
+	const html = await fetch(url).then((response) => response.text());
+	document.getElementById("main-container").innerHTML = html;
+
+	return titles[hashParts[0]];
+}
+
 const routes = {
-	"#/": "/pages/index.html",
-	"#/notes": "/pages/notes.html",
-	"#/projects": "/pages/projects.html",
-	"#/contacts": "/pages/contacts.html",
+	"": "/pages/index.html",
+	notes: "/pages/notes.html",
+	projects: "/pages/projects.html",
+	contacts: "/pages/contacts.html",
 	404: "/pages/404.html",
 };
 
+const routeFunctions = {
+	notes: handleNotes,
+};
+
 const titles = {
-	"#/": "Home",
-	"#/notes": "Notes",
-	"#/projects": "Projects",
-	"#/contacts": "Contacts",
+	"": "Home",
+	notes: "Notes",
+	projects: "Projects",
+	contacts: "Contacts",
 	404: "Page Not Found!",
 };
 
@@ -32,10 +57,19 @@ async function handleLocation() {
 		window.location.hash = "#/";
 		return;
 	}
-	const url = routes[hash] || routes["404"];
-	const title = titles[hash] || titles["404"];
-	const html = await fetch(url).then((response) => response.text());
-	document.getElementById("main-container").innerHTML = html;
+	const hashParts = hash.split("/");
+	const url = routes[hashParts[1]] || routes["404"];
+	const routeFunction = routeFunctions[hashParts[1]] || handleDefault;
+	const title = await routeFunction(url, hashParts);
+	const scrollElements = document.querySelectorAll(".on-scroll-fade-in");
+	for (const element of scrollElements) {
+		element.style.opacity = 0;
+	}
+	window.addEventListener("scroll", () => {
+		handleScrollAnimation(scrollElements);
+	});
+	handleScrollAnimation(scrollElements);
+	handleTypeEffect();
 	window.scrollTo({ top: 0 });
 	document.title = title;
 	window.dispatchEvent(onLoadEvent);
