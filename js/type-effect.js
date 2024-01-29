@@ -25,7 +25,7 @@ async function typeWriter(typeEffectContainer) {
 const handleTypeEffect = async () => {
 	window.isTypeWriterRunning = false;
 	const headingContainer = document.querySelector(".main-heading");
-	if (headingContainer == null) return;
+	if (!headingContainer) return;
 	const typeEffectContainers = headingContainer.querySelectorAll(
 		".type-effect-container"
 	);
