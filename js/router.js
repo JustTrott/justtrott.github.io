@@ -18,7 +18,7 @@ async function handleNotes(url, hashParts) {
 	if (hashParts.length >= 2) {
 		// check if there exists a note with url = hashParts[1]
 		const note = notes.find((note) => note.url == hashParts[1]);
-		if (!note) {
+		if (note == undefined) {
 			url = routes["404"];
 			title = titles["404"];
 		}
