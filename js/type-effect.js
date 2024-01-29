@@ -25,9 +25,11 @@ async function typeWriter(typeEffectContainer) {
 const handleTypeEffect = async () => {
 	window.isTypeWriterRunning = false;
 	const headingContainer = document.querySelector(".main-heading");
+	if (!headingContainer) return;
 	const typeEffectContainers = headingContainer.querySelectorAll(
 		".type-effect-container"
 	);
+	if (typeEffectContainers.length == 0) return;
 	headingContainer.style.height = `${
 		parseInt(
 			getComputedStyle(headingContainer.querySelector(".type-text"))
@@ -36,7 +38,6 @@ const handleTypeEffect = async () => {
 		typeEffectContainers.length *
 		1.5
 	}px`;
-	if (typeEffectContainers.length == 0) return;
 	for (const [i, element] of typeEffectContainers.entries()) {
 		const cursorSpan = element.querySelector(".type-cursor");
 		cursorSpan.classList.add("typing");

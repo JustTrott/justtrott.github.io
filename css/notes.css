@@ -5,7 +5,7 @@
 	gap: 2rem;
 }
 
-.note {
+.note-link {
 	border-radius: 1rem;
 	background-color: var(--bg-secondary);
 	min-height: 8rem;
@@ -17,26 +17,31 @@
 	cursor: pointer;
 }
 
-.note:hover {
+a.note-link {
+	text-decoration: none;
+	color: var(--text-primary);
+}
+
+.note-link:hover {
 	background-color: rgba(13, 13, 14, 0.7);
 }
 
-.note-title {
+.note-link-title {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 }
 
-.note-title .note-heading {
+.note-link-title .note-link-heading {
 	font-size: 1.5rem;
 	font-weight: 700;
 }
 
-.note-title .note-date {
+.note-link-title .note-link-date {
 	font-size: 1rem;
 	font-weight: 400;
 }
 
-.note-description {
+.note-link-description {
 	margin-top: 0.5rem;
 }
