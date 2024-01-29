@@ -21,6 +21,7 @@ body {
 	box-sizing: border-box;
 	color: var(--text-primary);
 	background-color: var(--bg-primary);
+	overflow-x: hidden;
 }
 
 #blob {
@@ -33,29 +34,30 @@ body {
 	translate: -50% -50%;
 	border-radius: 50%;
 	background: linear-gradient(to right, aquamarine, mediumpurple);
-	animation: rotate 20s infinite;
+	animation: rotate 14s infinite;
 	z-index: -2;
+	scale: 1.2 1.4
 }
 
 @keyframes rotate {
-	from {
+	0% {
 		rotate: 0deg;
 	}
 
 	50% {
-		scale: 1 1.2;
+		scale: 1.2 1.4;
 	}
-	to {
+	100% {
 		rotate: 360deg;
 	}
 }
 
 #blob-blur {
-	position: fixed; /* Make the position fixed */
-	top: 0; /* Position it at the top edge */
-	right: 0; /* Position it at the right edge */
-	bottom: 0; /* Position it at the bottom edge */
-	left: 0; /* Position it at the left edge */
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
 	z-index: -1;
 	backdrop-filter: blur(10rem);
 }
@@ -103,6 +105,7 @@ body {
 	margin-top: 5rem;
 	padding: 0 2rem;
 	width: 100%;
+	/* border: 1px solid red; */
 	/* height: 150vh; */
 	display: flex;
 	align-items: center;

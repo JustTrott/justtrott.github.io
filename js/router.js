@@ -14,7 +14,6 @@ const route = (event) => {
 
 async function handleNotes(url, hashParts) {
 	const title = handleDefault(url, hashParts);
-	console.log(hashParts);
 	const notes = await loadJson("/content/notes.json");
 	displayNotes(notes, document.getElementById("notes"));
 	if (hashParts.length > 2) {
@@ -25,7 +24,7 @@ async function handleNotes(url, hashParts) {
 async function handleDefault(url, hashParts) {
 	const html = await fetch(url).then((response) => response.text());
 	document.getElementById("main-container").innerHTML = html;
-
+	window.scrollTo({ top: 0 });
 	return titles[hashParts[0]];
 }
 
@@ -57,9 +56,9 @@ async function handleLocation() {
 		window.location.hash = "#/";
 		return;
 	}
-	const hashParts = hash.split("/");
-	const url = routes[hashParts[1]] || routes["404"];
-	const routeFunction = routeFunctions[hashParts[1]] || handleDefault;
+	const hashParts = hash.split("/").slice(1);
+	const url = routes[hashParts[0]] || routes["404"];
+	const routeFunction = routeFunctions[hashParts[0]] || handleDefault;
 	const title = await routeFunction(url, hashParts);
 	const scrollElements = document.querySelectorAll(".on-scroll-fade-in");
 	for (const element of scrollElements) {
@@ -70,7 +69,6 @@ async function handleLocation() {
 	});
 	handleScrollAnimation(scrollElements);
 	handleTypeEffect();
-	window.scrollTo({ top: 0 });
 	document.title = title;
 	window.dispatchEvent(onLoadEvent);
 }

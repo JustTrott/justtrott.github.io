@@ -1,5 +1,8 @@
 function blob() {
 	const blob = document.getElementById("blob");
+	const footer = document.getElementById("footer"); // Assuming your footer has id "footer"
+	const blobHeight = blob.offsetHeight;
+
 	if (window.matchMedia("(pointer: coarse)").matches) {
 		blob.style.display = "none";
 	} else {
@@ -11,8 +14,14 @@ function blob() {
 				lastY = e.clientY;
 			}
 
-			const x = e.pageX || lastX + window.scrollX;
-			const y = e.pageY || lastY + window.scrollY;
+			let x = e.pageX || lastX + window.scrollX;
+			let y = e.pageY || lastY + window.scrollY;
+			const footerBottom = footer.offsetTop + footer.offsetHeight;
+
+			// Prevent blob from going below the footer
+			if (y > footerBottom - blobHeight) {
+				y = footerBottom - blobHeight;
+			}
 
 			blob.animate(
 				{
