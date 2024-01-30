@@ -210,3 +210,22 @@ span.typing {
 #footer > .socials > a:hover {
 	color: var(--text-primary);
 }
+
+.hidden {
+	opacity: 0;
+	pointer-events: none;
+	cursor: default;
+}
+
+@media only screen and (max-width: 768px) {
+	/* For mobile phones: */
+	#header {
+		padding: 1rem 1rem;
+	}
+	#main-container {
+		padding: 0 2rem;
+	}
+	#footer {
+		padding: 1rem 2rem;
+	}
+}

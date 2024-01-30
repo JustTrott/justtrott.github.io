@@ -29,15 +29,37 @@ function createShortNote(noteData) {
 	return note;
 }
 
-function displayNote(noteData, noteElement) {
-	console.log(noteData);
-	noteElement.querySelector(".note-title").innerHTML = noteData.title;
-	noteElement.querySelector(".note-date").innerHTML = dayjs(
-		noteData.date
-	).format("MMMM DD, YYYY");
-	noteElement.querySelector(".note-subtitle").innerHTML =
-		noteData.description;
-	noteElement.querySelector(".note-text").innerHTML = noteData.text;
+function displayNote(notes, note, noteElement) {
+	noteElement.querySelector(".note-title").innerHTML = note.title;
+	noteElement.querySelector(".note-date").innerHTML = dayjs(note.date).format(
+		"MMMM DD, YYYY"
+	);
+	noteElement.querySelector(".note-subtitle").innerHTML = note.description;
+	noteElement.querySelector(".note-text").innerHTML = note.text;
+	// if there are no next or previous notes, hide the buttons
+	// determine next and previous notes by comparing the current note's date with the dates of all the notes
+	// sort notes by date
+	notes.sort((a, b) => (a.date > b.date ? 1 : a.date > b.date ? -1 : 0));
+	const noteIndex = notes.findIndex((listNote) => listNote.url == note.url);
+	const previousNoteButton = noteElement.querySelector(
+		"#previous-note-button"
+	);
+	console.log(notes);
+	const nextNoteButton = noteElement.querySelector("#next-note-button");
+	if (noteIndex == 0) {
+		previousNoteButton.classList.add("hidden");
+	} else {
+		previousNoteButton.classList.remove("hidden");
+		// if there is a previous note, add a link to it
+		previousNoteButton.href = `#/notes/${notes[noteIndex - 1].url}`;
+	}
+	if (noteIndex == notes.length - 1) {
+		nextNoteButton.classList.add("hidden");
+	} else {
+		nextNoteButton.classList.remove("hidden");
+		// if there is a next note, add a link to it
+		nextNoteButton.href = `#/notes/${notes[noteIndex + 1].url}`;
+	}
 }
 
 // create note from all the notes in the data and append them to the #notes element

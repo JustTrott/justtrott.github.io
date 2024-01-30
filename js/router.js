@@ -20,7 +20,7 @@ async function handleNote(url, hashParts) {
 		return await handleDefault(url, hashParts);
 	}
 	await handleDefault(url, hashParts);
-	displayNote(note, document.getElementById("note"));
+	displayNote(notes, note, document.getElementById("note"));
 	return note.title;
 }
 

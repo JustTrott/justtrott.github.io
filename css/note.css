@@ -43,18 +43,20 @@
 }
 
 .note-button {
+	text-decoration: none;
 	padding: 1rem 2rem;
 	border-radius: 0.5rem;
 	background-color: rgb(222, 222, 222);
 	font-size: 1.5rem;
 	font-weight: 600;
 	cursor: pointer;
+	color: var(--bg-secondary);
 }
 
 @media only screen and (max-width: 768px) {
 	/* For mobile phones: */
 	#note {
-		padding: 2rem 1rem;
+		padding: 2rem 2rem;
 		width: 100%;
 	}
 }
