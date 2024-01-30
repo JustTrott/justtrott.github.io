@@ -1,6 +1,6 @@
 import { handleTypeEffect } from "./type-effect.js";
 import { handleScrollAnimation } from "./scroll-animations.js";
-import { loadJson, displayNoteByUrl, displayNotes } from "./content-loader.js";
+import { loadJson, displayNote, displayNotes } from "./content-loader.js";
 
 /**
  * @param {Event} event
@@ -12,27 +12,26 @@ const route = (event) => {
 	window.location.hash = path; // Set the hash part of the URL
 };
 
-async function handleNotes(url, hashParts) {
+async function handleNote(url, hashParts) {
 	const notes = await loadJson("/content/notes.json");
-	let title = titles[hashParts[0]];
-	if (hashParts.length >= 2) {
-		// check if there exists a note with url = hashParts[1]
-		const note = notes.find((note) => note.url == hashParts[1]);
-		if (!note) {
-			url = routes["404"];
-			title = titles["404"];
-		}
-		await handleDefault(url, hashParts);
-		if (note) {
-			displayNoteByUrl(note, document.getElementById("notes"));
-			title = note.title;
-		}
-	} 
-	else {
-		await handleDefault(url, hashParts);
-		displayNotes(notes, document.getElementById("notes"));
+	const note = notes.find((note) => note.url == hashParts[1]);
+	if (!note) {
+		url = routes["404"];
+		return await handleDefault(url, hashParts);
 	}
-	
+	await handleDefault(url, hashParts);
+	displayNote(note, document.getElementById("note"));
+	return note.title;
+}
+
+async function handleNotes(url, hashParts) {
+	if (hashParts.length >= 2) {
+		return await handleNote(_routes["note"], hashParts);
+	}
+	const title = await handleDefault(url, hashParts);
+	const notes = await loadJson("/content/notes.json");
+	displayNotes(notes, document.getElementById("notes"));
+
 	return title;
 }
 
@@ -51,8 +50,13 @@ const routes = {
 	404: "/pages/404.html",
 };
 
+const _routes = {
+	note: "/pages/note.html",
+};
+
 const routeFunctions = {
 	notes: handleNotes,
+	note: handleNote,
 };
 
 const titles = {
@@ -67,7 +71,6 @@ const onLoadEvent = new Event("onload");
 
 async function handleLocation() {
 	const hash = window.location.hash;
-	console.log(hash);
 	if (hash == "") {
 		window.location.hash = "#/";
 		return;

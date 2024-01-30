@@ -8,7 +8,7 @@
 	--bg-primary: rgb(29, 29, 31);
 	--bg-secondary: rgb(13, 13, 14);
 	--bg-card: rgb(38, 38, 41);
-	--backdrop: rgba(13, 13, 14, 0.7);
+	--backdrop: rgba(13, 13, 14, 0.8);
 }
 
 * {
@@ -36,7 +36,7 @@ body {
 	background: linear-gradient(to right, aquamarine, mediumpurple);
 	animation: rotate 14s infinite;
 	z-index: -2;
-	scale: 1.2 1.4
+	scale: 1.2 1.4;
 }
 
 @keyframes rotate {

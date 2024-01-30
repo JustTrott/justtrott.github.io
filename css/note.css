@@ -1,0 +1,60 @@
+#note {
+	padding: 2rem 4rem;
+	width: 60%;
+	background-color: var(--backdrop);
+	display: flex;
+	flex-direction: column;
+	gap: 2rem;
+}
+
+.note-heading {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.note-title {
+	font-size: 3rem;
+	font-weight: 600;
+	text-align: center;
+}
+
+.note-date {
+	font-size: 1.5rem;
+	font-weight: 400;
+	text-align: center;
+	font-family: "Roboto Mono", monospace;
+}
+
+.note-subtitle {
+	font-size: 2rem;
+	font-weight: 500;
+}
+
+.note-text {
+	font-size: 1.5rem;
+	text-align: justify;
+	text-justify: distribute;
+}
+
+.note-buttons {
+	display: flex;
+	justify-content: space-between;
+}
+
+.note-button {
+	padding: 1rem 2rem;
+	border-radius: 0.5rem;
+	background-color: rgb(222, 222, 222);
+	font-size: 1.5rem;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+@media only screen and (max-width: 768px) {
+	/* For mobile phones: */
+	#note {
+		padding: 2rem 1rem;
+		width: 100%;
+	}
+}
