@@ -38,27 +38,25 @@ function displayNote(notes, note, noteElement) {
 	noteElement.querySelector(".note-text").innerHTML = note.text;
 	// if there are no next or previous notes, hide the buttons
 	// determine next and previous notes by comparing the current note's date with the dates of all the notes
-	// sort notes by date
-	notes.sort((a, b) => (a.date > b.date ? 1 : a.date > b.date ? -1 : 0));
 	const noteIndex = notes.findIndex((listNote) => listNote.url == note.url);
 	const previousNoteButton = noteElement.querySelector(
 		"#previous-note-button"
 	);
 	console.log(notes);
 	const nextNoteButton = noteElement.querySelector("#next-note-button");
-	if (noteIndex == 0) {
+	if (noteIndex == notes.length - 1) {
 		previousNoteButton.classList.add("hidden");
 	} else {
 		previousNoteButton.classList.remove("hidden");
 		// if there is a previous note, add a link to it
-		previousNoteButton.href = `#/notes/${notes[noteIndex - 1].url}`;
+		previousNoteButton.href = `#/notes/${notes[noteIndex + 1].url}`;
 	}
-	if (noteIndex == notes.length - 1) {
+	if (noteIndex == 0) {
 		nextNoteButton.classList.add("hidden");
 	} else {
 		nextNoteButton.classList.remove("hidden");
 		// if there is a next note, add a link to it
-		nextNoteButton.href = `#/notes/${notes[noteIndex + 1].url}`;
+		nextNoteButton.href = `#/notes/${notes[noteIndex - 1].url}`;
 	}
 }
 
