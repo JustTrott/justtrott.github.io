@@ -1,0 +1,16 @@
+[
+	{
+		"id": "1",
+		"url": "https://github.com/JustTrott/wordley",
+		"image": "images/wordley.png",
+		"title": "Wordley",
+		"description": "My first website-based project that I used to explore web development."
+	},
+	{
+		"id": "2",
+		"url": "https://trott.tk",
+		"image": "images/blog.png",
+		"title": "My Blog",
+		"description": "My personal blog where I write about my projects and other things."
+	}
+]

@@ -30,7 +30,7 @@ const handleTypeEffect = async () => {
 		".type-effect-container"
 	);
 	if (typeEffectContainers.length == 0) return;
-	headingContainer.style.height = `${
+	headingContainer.style.minHeight = `${
 		parseInt(
 			getComputedStyle(headingContainer.querySelector(".type-text"))
 				.fontSize
